@@ -12,7 +12,6 @@
 >[[Cheat Engine Tutorial Walkthrough]]
 >[[HNM - Fractured Clearance]]
 >[[Project Zomboid]]
-> Finished Archive Restoration.
 
 ## 🚀 Quick Navigation
 <div class="cards">
