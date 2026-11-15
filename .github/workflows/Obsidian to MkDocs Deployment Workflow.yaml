@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -11,79 +16,58 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      
-      - name: Log repository structure and environment
-        run: |
-          echo "[DEBUG] Working directory: $(pwd)"
-          echo "[DEBUG] Repository contents:"
-          ls -laR || echo "Failed to list files"
-          echo "[DEBUG] Environment variables:"
-          env | sort
-          echo "[DEBUG] Disk space:"
-          df -h .
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      
+
       - name: Install MkDocs and dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      
+
       - name: Prepare MkDocs content
         run: |
           set -e
           log() { echo "[INFO] $1"; }
-          
+
           mkdir -p docs docs/assets/stylesheets docs/assets/javascripts overrides
-          
-          dirs=(
-            "./Books"
-            "./My Learning"
-            "./Clippings"
-            "./Excalidraw"
-            "./University"
-            "./Files/Cool Posters"
-            "./Files/My Learning"
-            "./Files/Job Hunting"
-            "./Files/University"
-            "./Templates"
-            "./Archived"
-          )
-          
-          for dir in "${dirs[@]}"; do
-            if [ -d "$dir" ]; then
-              log "Copying from $dir"
-              cp -r "$dir/"* docs/
-            else
-              log "Skipping missing directory: $dir"
-            fi
-          done
-          
-          cp "./My Learning/Homepage.md" ./docs/index.md 2>/dev/null || echo "Homepage not found"
-          cp "./Website TODO List.md" ./docs/ 2>/dev/null || echo "Website TODO List.md not found"
-          cp "./custom.css" ./docs/assets/stylesheets/ 2>/dev/null || echo "custom.css not found"
-          cp "./seasonal.css" ./docs/assets/stylesheets/ 2>/dev/null || echo "seasonal.css not found"
-          cp "./seasonal.js" ./docs/assets/javascripts/ 2>/dev/null || echo "seasonal.js not found"
-          cp "./404.html" ./docs/overrides 2>/dev/null || echo "404.html not found"
-          
-          log "All files copied to docs/ directory."
-      
+
+          log "Copying repository content into docs/"
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'docs' \
+            --exclude 'site' \
+            --exclude 'overrides' \
+            --exclude 'mkdocs.yaml' \
+            --exclude 'requirements.txt' \
+            --exclude 'custom.css' \
+            --exclude 'seasonal.css' \
+            --exclude 'seasonal.js' \
+            --exclude '404.html' \
+            ./ docs/
+
+          cp "./My Learning/Homepage.md" ./docs/index.md 2>/dev/null || log "Homepage not found"
+          cp ./custom.css ./docs/assets/stylesheets/ 2>/dev/null || log "custom.css not found"
+          cp ./seasonal.css ./docs/assets/stylesheets/ 2>/dev/null || log "seasonal.css not found"
+          cp ./seasonal.js ./docs/assets/javascripts/ 2>/dev/null || log "seasonal.js not found"
+          cp ./404.html ./overrides/ 2>/dev/null || log "404.html not found"
+
+          log "All files copied to docs/"
+
       - name: Convert Obsidian callouts to MkDocs format
         run: |
           echo "[INFO] Converting Obsidian callouts to MkDocs admonitions"
-          
+
           cat > /tmp/convert_callouts.py << 'EOF'
           import sys
           import re
-          import os
-          
+
           def convert_obsidian_to_mkdocs(content):
-              # Replace [[Homepage]] links with [[index]]
               content = re.sub(r'\[\[Homepage\]\]', '[[index]]', content)
-              
+
               callout_map = {
                   'note': 'note', 'abstract': 'abstract', 'summary': 'abstract',
                   'tldr': 'abstract', 'info': 'info', 'todo': 'todo',
@@ -95,27 +79,27 @@ jobs:
                   'danger': 'danger', 'error': 'danger', 'bug': 'bug',
                   'example': 'example', 'quote': 'quote', 'cite': 'quote',
               }
-              
+
               lines = content.split('\n')
               result = []
               i = 0
-              
+
               while i < len(lines):
                   line = lines[i]
                   match = re.match(r'^>\s*\[!(\w+)\](-?)\s*(.*?)$', line)
-                  
+
                   if match:
                       callout_type = match.group(1).lower()
                       is_collapsible = match.group(2) == '-'
                       title = match.group(3).strip()
                       admonition_type = callout_map.get(callout_type, 'note')
                       prefix = '???' if is_collapsible else '!!!'
-                      
+
                       if title:
                           result.append(f'{prefix} {admonition_type} "{title}"')
                       else:
                           result.append(f'{prefix} {admonition_type} "{callout_type.capitalize()}"')
-                      
+
                       i += 1
                       while i < len(lines):
                           content_line = lines[i]
@@ -128,34 +112,33 @@ jobs:
                   else:
                       result.append(line)
                       i += 1
-              
+
               return '\n'.join(result)
-          
+
           if __name__ == '__main__':
               if len(sys.argv) != 2:
                   print("Usage: python convert_callouts.py <file>")
                   sys.exit(1)
-              
+
               filepath = sys.argv[1]
               with open(filepath, 'r', encoding='utf-8') as f:
                   content = f.read()
-              
+
               converted = convert_obsidian_to_mkdocs(content)
-              
+
               with open(filepath, 'w', encoding='utf-8') as f:
                   f.write(converted)
           EOF
-          
+
           find ./docs -type f -name "*.md" | while read -r file; do
             echo "[INFO] Processing: $file"
             python3 /tmp/convert_callouts.py "$file"
           done
-          
+
           echo "[INFO] Callout conversion complete!"
-      
+
       - name: Make all files read-only
-        run: |
-          chmod -R a-w ./docs/
-      
+        run: chmod -R a-w ./docs/
+
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force --config-file mkdocs.yaml
