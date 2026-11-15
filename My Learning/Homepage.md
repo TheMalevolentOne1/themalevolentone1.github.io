@@ -1,8 +1,8 @@
 <div class="hero">
   <h1>🧠 Welcome to My <a href="./Notes/Notes/">Learning Notes</a></h1>
   <p>My personal hub for study materials and notes — a living collection of what I’m learning, built for me but accessible to anyone.</p>
-  <a href="./Notes/Notes/" class="md-button">📂 Browse Notes</a>
-  <a href="./Video Notes/Video Notes/" class="md-button md-button--primary">🎥 Video Notes</a>
+  <a href="./My Learning/Notes/Notes/" class="md-button">📂 Browse Notes</a>
+  <a href="./My Learning/Video Notes/Video Notes/" class="md-button md-button--primary">🎥 Video Notes</a>
 </div>
 
 >[!NOTE]
@@ -24,31 +24,31 @@
   <div class="card">
     <h3>📒 Notes</h3>
     <p>Enumeration, exploitation, and defence strategies.</p>
-    <a href="./Notes/Notes/">Open Notes →</a>
+    <a href="./My Learning/Notes/Notes/">Open Notes →</a>
   </div>
 
   <div class="card">
     <h3>📚 Guides</h3>
     <p>Step-by-step walkthroughs and practical labs.</p>
-    <a href="./Guides/Guides/">View Guides →</a>
+    <a href="./My Learning/Guides/Guides/">View Guides →</a>
   </div>
 
   <div class="card">
     <h3>🎥 Video Notes</h3>
     <p>Summaries and insights from top hacking tutorials.</p>
-    <a href="./Video Notes/Video Notes">Watch & Learn →</a>
+    <a href="./My Learning/Video Notes/Video Notes">Watch & Learn →</a>
   </div>
 
   <div class="card">
     <h3>📖 Books</h3>
     <p>Study references and reading materials.</p>
-    <a href="./My Library">View Books →</a>
+    <a href="./Books/My Library">View Books →</a>
   </div>
   
   <div class="card">
     <h3>📚 Manga Reading</h3>
     <p>Manga I like to read and what I'm reading!</p>
-    <a href="./Read List">View Reading List →</a>
+    <a href="./Books/My Reading List">View Reading List →</a>
   </div>
 </div>
 
