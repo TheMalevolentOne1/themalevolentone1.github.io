@@ -1,9 +1,11 @@
 ---
 tags:
   - CO2402
-  - Advanced Programming
+  - Advanced-Programming
 ---
+[[CO2402 Lecture 15 - Deep & Shallow Copy]]
 
+---
 # CValueAssignment.cpp
 
 ```cpp
