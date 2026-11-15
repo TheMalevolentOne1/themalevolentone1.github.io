@@ -14,8 +14,8 @@ theme:
     # Dark mode configuration
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: red
-      accent: pink
+      primary: custom
+      accent: red
       toggle:
         icon: material/brightness-7
         name: Switch to Light Mode
@@ -97,10 +97,10 @@ theme:
 
 nav:
   - 🏠 Home: index
-  - 🛡️ Notes Contents: Notes/Notes/
-  - 🎥 Video Notes Contents: Video Notes/Video Notes/
-  - 📚 Guide Contents: Guides/Guides/
-  - 📖 Books: My Library
+  - 🛡️ Notes Contents: My Learning/Notes/Notes/
+  - 🎥 Video Notes Contents: My Learning/Video Notes/Video Notes/
+  - 📚 Guide Contents: My Learning/Guides/Guides/
+  - 📖 Books: Books/My Library
   - 📰 The News: https://theneworacle.github.io/
 
 plugins:
