@@ -1,5 +1,5 @@
-:root > * {
-  --md-header md-header--shadow: #880808
+.md-header--shadow {
+  background-color: #880808;
 }
 
 /* Warm, red-tinted dark mode background */
