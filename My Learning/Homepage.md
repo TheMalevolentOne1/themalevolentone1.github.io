@@ -11,7 +11,7 @@
 > **Most Recent Notes** (WIP):
 >[[Cheat Engine Tutorial Walkthrough]]
 >[[HNM - Fractured Clearance]]
->[[Project Zomboid]]
+>[[Project Zomboid]].
 
 ## 🚀 Quick Navigation
 <div class="cards">
