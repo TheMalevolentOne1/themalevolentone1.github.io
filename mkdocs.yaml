@@ -15,7 +15,7 @@ theme:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: custom
-      accent: red
+      accent: pink
       toggle:
         icon: material/brightness-7
         name: Switch to Light Mode
