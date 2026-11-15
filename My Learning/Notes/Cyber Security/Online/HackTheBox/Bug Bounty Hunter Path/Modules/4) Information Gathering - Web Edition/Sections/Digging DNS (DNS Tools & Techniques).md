@@ -1,0 +1,74 @@
+---
+tags:
+  - HackTheBox
+  - Information-Gathering-Web-Edition
+---
+[[Information Gathering - Web Edition]]
+[Previous Section](DNS%20(Information%20Gathering).md)
+# DNS Tools
+Below are some **specialised tools** designed to *query DNS servers* and extract valuable information:
+
+|                             Tool                             |                                                     Key Features                                                      |                                                             Use Cases                                                              |
+| :----------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: |
+|                [**dig**](https://man.cx/dig)                 |        Flexible **DNS Lookup** tool that *supports various* query types (**A**, **MX**, **NS**, **TXT**, etc).        | **Manual DNS Queries**, **Zone Transfers** (*if allowed*), **Troubleshooting DNS Issues**, and *In-depth Analysis* of DNS Records. |
+|           [**nslookup**](https://man.cx/nslookup)            |                       Simpler **DNS Lookup Tool**, primarily for *A*, *AAAA*, and *MX* records.                       |                     **Basic DNS queries**, **Quick Check of Domain Resolution**, and **Mail Server Records**.                      |
+|               [**host**](https://man.cx/host)                |                                Streamlined **DNS Lookup Tool** with *concise output*.                                 |                                        **Quick Checks of A**, **AAAA**, and **MX Records**.                                        |
+|            [**dnsenum**](https://man.cx/dnsenum)             | Automated **DNS Enumeration Tool**, **Dictionary Attacks**, **Brute-Forcing**, and **Zone Transfers** (*if allowed*). |                             **Discovering Subdomains** and gathering **DNS Information** efficiently.                              |
+|             [**fierce**](https://man.cx/fierce)              |      **DNS Reconnaissance** and **Subdomain Enumeration Tool with Recursive Search** and **Wildcard Detection**.      |           **User-Friendly Interface** for **DNS Reconnaissance**, **Identifying Subdomains**, and **potential Targets**.           |
+|           [**dnsrecon**](https://man.cx/dnsrecon)            |              Combines multiple **DNS Reconnaissance** techniques and supports *various output formats*.               |            **Collecting Email Addresses**, **Employee Information**, and **Gathering Records** for *further analysis*.             |
+| [**theHarvester**](https://www.kali.org/tools/theharvester/) |  **OSINT Tool** that gathers information from *various sources*, including **DNS Records** (e.g. *Email Addresses*).  |     **Collecting Email Addresses**, **Employee Information**, and *other associated data* with a domain from multiple sources.     |
+
+## Online DNS Lookup Tools
+[[Online DNS Lookup Services]]
+
+---
+# DNS Techniques
+## 1) The Domain Information Groper ([**dig**](https://man.cx/dig))
+The **dig** (Domain Information Groper) is a flexible tool used for:
+- **Querying DNS Servers**,
+- **Retrieving various types of DNS records**.
+### Common Dig Commands
+
+|              Command              | Description                                                                                                                                                                                                           |
+| :-------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|        **dig domain.com**         | Retrieves a **default A Record** lookup for the domain.                                                                                                                                                               |
+|       **dig domain.com A**        | Retrieves the **IPv4 Address (A Record)** associated with the domain.                                                                                                                                                 |
+|      **dig domain.com AAAA**      | Retrieves the **IPv6 Address (AAAA Record)** associated with the domain.                                                                                                                                              |
+|       **dig domain.com MX**       | Finds the **Mail Servers (MX Records)** responsible for the domain.                                                                                                                                                   |
+|       **dig domain.com NS**       | Identifies the **Authoritative Name Servers** for the domain.                                                                                                                                                         |
+|      **dig domain.com TXT**       | Retrieves any **TXT Records** associated with the domain.                                                                                                                                                             |
+|     **dig domain.com CNAME**      | Retrieves the **Canonical Name (CNAME) Record** for the domain.                                                                                                                                                       |
+|      **dig domain.com SOA**       | Retrieves the start of **Authority (SOA) Record** for the domain.                                                                                                                                                     |
+|    **dig @1.1.1.1 domain.com**    | Specifies a **Specific Name Server** to query; in this case *1.1.1.1*.                                                                                                                                                |
+|     **dig +trace domain.com**     | Shows the **Full DNS Resolution Path**.                                                                                                                                                                               |
+|      **dig -x 192.168.1.1**       | Performs a **Reverse Lookup** on the *IP Address*, *192.168.1.1* to find the associated `Host Name`. A *Name Server* may need to be **specified**.                                                                    |
+|     **dig +short domain.com**     | Performs a *short*, and *concise answer* to the query.                                                                                                                                                                |
+| **dig +noall +answer domain.com** | Displays only the **answer section** of the *query output*.                                                                                                                                                           |
+|      **dig domain.com ANY**       | Retrieves *all available DNS records* for the domain.<br>> Many **DNS Records** servers ignore **ANY** queries to *reduce load* and *prevent abuse* (i.e. [RFC 8482](https://datatracker.ietf.org/doc/html/rfc8482)). |
+
+> **Caution**: Some servers can detect and block excessive DNS queries. Use caution and respect rate limits. Always obtain permission before performing extensive DNS reconnaissance on a target.
+### Using Dig Groping DNS
+![[Information-Gathering-dig-google.png]]
+<sub>Example of <code>Google.com</code> dig command output.</sub>
+
+|  Dig Output Section  | Example                                                                                                                                                                                                                                                                                       | Example Explanation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| :------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|      **Header**      | **DNS Header**:<br>`;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 16449`:<br><br>**DNS Header Flags**:<br>`;; flags: qr rd ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0`<br><br>**DNS Warning Flag**:<br>`;; WARNING: recursion requested but not available`                    | **DNS Header**:<br>Indicates the **type of query** (*QUERY*), the **successful status** (**NOERROR**) and a **Unique Identifier** (*16449*).<br><br>**DNS Header Flags**:<br>- **qr**: *Query Response Flag* which indicates this is a response.<br><br>- **rd**: *Recursion Desired Flag* which means *recursion* was requested.<br><br>- **ad**: *Authentic Data Flag* means the **resolver** considers the *data authentic*.<br><br>The **remaining numbers** indicate the *number of entries* in *each section* of the **DNS Response**:<br>- *1 Question*, *1 Answer*, *0 Authority Records*, and *0 Additional Records*.<br><br>**DNS Warning Flag**:<br>Indicating *recursion* was requested, but the *server does not support it*. |
+| **Question Section** | **IPv4 Address (A Record) for `google.com`**<br>`;google.com. IN A`                                                                                                                                                                                                                           | **IPv4 Address (A Record)**:<br>"*What is the IPv4 address (A Record) for* `google.com`?"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|  **Answer Section**  | **Answer To Query**:<br>`google.com. 0 IN A 142.251.47.142`                                                                                                                                                                                                                                   | **Answer To Query**:<br>Indicates the *ip address* associated with `google.com` is **142.251.47.154**.<br><br>The `0` represents the **TTL (Time-To-Live)** indicating how long the result can be *cached before being refreshed*.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|      **Footer**      | **Time Query Took**:<br>`;; Query time: 0 msec`<br><br>**Answer Obtained DNS Server & Protocol**:<br>`;; SERVER: 172.23.176.1#53(172.23.176.1) (UDP)`<br><br>**Query Timestamp**:<br>`;; WHEN: Thu Jun 13 10:45:58 SAST 2024`<br><br>**DNS Message Received Size**:<br>`;; MSG SIZE rcvd: 54` | **Time Query Took**:<br>Shows the time taken for the *query* to be **processed** and the **response** to be *received* (*0 milliseconds*).<br><br>**Answer Obtained DNS Server & Protocol**:<br>Identifies the **DNS Server** that *provided the answer* and the *protocol* used (e.g. **UDP**).<br><br>**Query Timestamp**:<br>**Timestamp** of when the *query* was made.<br><br>**DNS Message Received Size**:<br>Indicates the *size of the DNS Message* received (i.e. *54 Bytes*).                                                                                                                                                                                                                                                   |
+
+> An **opt pseudosection** can sometimes exist in a *dig* query. This is a result of **Extension Mechanisms** for **DNS** (*EDNS*) which allows for *additional features* such as **larger message sizes** and **DNS Security Extensions** (*DNSSEC*) support.
+
+---
+# Exercises
+Q: Which IP address maps to inlanefreight.com?
+A: `134.209.24.248`
+
+Q: Which domain is returned when querying the PTR record for 134.209.24.248?
+A: `inlanefreight.com`
+
+Q: What is the full domain returned when you query the mail records for facebook.com?
+A: `smtpin.vvv.facebook.com.`
+
+[Next Section](Subdomains.md)

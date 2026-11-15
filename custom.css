@@ -1,0 +1,87 @@
+:root {
+  --md-default-bg-color: linear-gradient(135deg, #D4A5E0, #F5C6AA);
+}
+
+/* === Hero Banner === */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(to right, #1f1c2c, #928dab);
+  color: white;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.hero .md-button {
+  background-color: #ff5722;
+  color: white;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.3rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.hero .md-button:hover {
+  background-color: #e64a19;
+}
+
+/* === Card Layout === */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.card {
+  background-color: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: 0.5rem;
+  padding: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.card p {
+  margin-bottom: 0.5rem;
+}
+.card a {
+  color: var(--md-primary-fg-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* === Custom Buttons === */
+.md-button--primary {
+  background-color: #ff4081;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+.md-button--primary:hover {
+  background-color: #f50057;
+}
+
+/* === Dark Mode Tweaks === */
+[data-md-color-scheme="slate"] .hero {
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+[data-md-color-scheme="slate"] .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
