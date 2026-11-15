@@ -14,7 +14,7 @@ theme:
     # Dark mode configuration
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: custom
+      primary: red
       accent: pink
       toggle:
         icon: material/brightness-7
@@ -97,11 +97,10 @@ theme:
 
 nav:
   - 🏠 Home: index
+  - 📖 My Library: Books/My Library
   - 🛡️ Notes Contents: My Learning/Notes/Notes/
   - 🎥 Video Notes Contents: My Learning/Video Notes/Video Notes/
   - 📚 Guide Contents: My Learning/Guides/Guides/
-  - 📖 Books: Books/My Library
-  - 📰 The News: https://theneworacle.github.io/
 
 plugins:
   - callouts
@@ -285,22 +284,6 @@ extra:
   
   # Disable generator notice
   generator: false
-  
-  # Analytics
-  analytics:
-    provider: google
-    property: G-K5KGS18WRC
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: material/emoticon-happy-outline
-          name: This page was helpful
-          data: 1
-          note: >-
-            Thanks for your feedback!
-        - icon: material/emoticon-sad-outline
-          name: This page could be improved
-          data: 0
   
   # Tags configuration
   tags:
