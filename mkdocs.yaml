@@ -1,10 +1,10 @@
 site_name: My Notes Collection
 site_description: A comprehensive collection of personal notes on cyber security, ethical hacking, and related topics
-site_url: https://TheMalevolentOne1.github.io/My-Notes-Collection/
+site_url: https://TheMalevolentOne1.github.io/
 site_author: TheMalevolentOne1
 repo_name: TheMalevolentOne1/My-Notes-Collection
-repo_url: https://github.com/TheMalevolentOne1/My-Notes-Collection
-edit_uri: edit/main/docs/
+repo_url: https://github.com/TheMalevolentOne1/themalevolentone1.github.io
+edit_uri: edit/main
 copyright: Hello World! Welcome to my Personal Notes Collection!
 
 theme:
