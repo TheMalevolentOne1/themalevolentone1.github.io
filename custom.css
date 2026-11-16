@@ -1,6 +1,8 @@
-.md-header--shadow {
-  background-color: #880808;
+.md-header {
+  background-color: #880808 !important;
 }
+
+
 
 /* Warm, red-tinted dark mode background */
 [data-md-color-scheme="slate"] {
