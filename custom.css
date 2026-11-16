@@ -11,9 +11,8 @@
 .md-header--hidden {
   background-color: #ff5722;
   transition:
-    transform 250ms cubic-bezier(.1,.7,.1,1),
-    box-shadow 250ms,
-    background-color 400ms ease;
+    transform 1s cubic-bezier(.1,.7,.1,1),
+    background-color ease;
 }
 
 /* Warm, red-tinted dark mode background */
