@@ -1,5 +1,5 @@
 <div class="hero">
-  <h1>🧠 Welcome to My <a href="./Notes/Notes/">Learning Notes</a></h1>
+  <h1>🧠 Welcome to My <a href="./My Learning/Notes/Notes/">Learning Notes</a></h1>
   <p>My personal hub for study materials and notes — a living collection of what I’m learning, built for me but accessible to anyone.</p>
   <a href="./My Learning/Notes/Notes/" class="md-button">📂 Browse Notes</a>
   <a href="./My Learning/Video Notes/Video Notes/" class="md-button md-button--primary">🎥 Video Notes</a>
@@ -55,13 +55,13 @@
 ---
 ## 🛠 Built With
 
-| Tools                                                                                                                                                            | Why It’s Here                                          |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| [Obsidian](https://www.obsidian.md)                                                                                                                              | My second brain, tying ideas together simply.          |
-| [GitHub Pages](https://pages.github.com)                                                                                                                         | My free, no-fuss home on the web.                      |
-| [MkDocs](https://www.mkdocs.org)                                                                                                                                 | Turns my messy notes into something resembling a site. |
-| [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)                                                                                              | Makes this place look nicer.                           |
-| [**Human Fuel**](https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Monster_Energy_drink_%28cropped%29.jpg/1200px-Monster_Energy_drink_%28cropped%29.jpg) | Coffee, Monster, Red Bull and everything in between.   |
+| Tools                                                                                                        | Why It’s Here                                          |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| [Obsidian](https://www.obsidian.md)                                                                          | My second brain, tying ideas together simply.          |
+| [GitHub Pages](https://pages.github.com)                                                                     | My free, no-fuss home on the web.                      |
+| [MkDocs](https://www.mkdocs.org) soon to be replaced with [Zensical](https://zensical.org/upcoming-changes/) | Turns my messy notes into something resembling a site. |
+| [Material for MkDocs](https://sqsuidfunk.github.io/mkdocs-material/)                                         | Makes this place look nicer.                           |
+| [**Human Fuel**](https://upload.wikimedia.org/wikipedia/commons/0/06/Monster_Energy_drink_%28cropped%29.jpg) | Coffee, Monster, Red Bull and everything in between.   |
 [[Obsidian Graph History]]
 📌[[Website TODO List]]
 
