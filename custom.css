@@ -1,12 +1,12 @@
 /* Header with shadow */
 .md-header.md-header--shadow {
-    background-color: #880808 !important;
+    background-color: #880808;
     transition: background-color 0s 1s;
 }
 
 /* Header when hidden */
 .md-header[data-md-state="hidden"] {
-    background-color: #ff5722 !important;
+    background-color: #ff5722;
     transition: background-color 0s 2s; 
 }
 
