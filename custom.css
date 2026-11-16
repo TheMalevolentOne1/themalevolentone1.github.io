@@ -9,7 +9,7 @@
 
 /* When hidden (needs header.autohide in theme.features) */
 .md-header--hidden {
-  background-color: #ff5722;
+  background-color: #ff5722 !important;
   transition:
     transform 1s cubic-bezier(.1,.7,.1,1),
     background-color ease;
