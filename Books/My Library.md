@@ -82,6 +82,8 @@ tags:
 ## Art Books
 - [[OMORI Walkthrough]]
 - [[Omori Artbook]]
+## Fairytale Retellings
+- [[EAH Books]]
 ## Sci-Fi
 - [[All Systems Red - The Murderbot Diaries.pdf]]
 - [[Dishonoured Contents]]
